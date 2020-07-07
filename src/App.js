@@ -1,79 +1,116 @@
-import React, { useState } from "react";
+import React, { useState, Component } from "react";
 // import logo from "./logo.svg";
 import "./App.css";
 import Person from "./Person/Person";
 import person from "./Person/Person";
 
-const app = (props) => {
-  const [personState, setPersonState] = useState({
+class App extends Component {
+  // const [personState, setPersonState] = useState({
+  //   persons: [
+  //     { name: "maxyyyyy", age: 25 },
+  //     { name: "max", age: 25 },
+  //     { name: "max", age: 25 },
+  //   ],
+  //   showPersons: false,
+  // });
+  state = {
     persons: [
-      { name: "maxyyyyy", age: 25 },
-      { name: "max", age: 25 },
-      { name: "max", age: 25 },
+      { name: "su", age: 22 },
+      { name: "subha", age: 222 },
+      { name: "subhasish", age: 2222 },
     ],
+    otherState: "Some Other value",
     showPersons: false,
-  });
+  };
 
-  const nameChangeHandler = (event) => {
-    setPersonState({
+  switchNameHandler = (newName) => {
+    this.setState({
       persons: [
-        { name: "newName", age: 258 },
-        { name: "max", age: 25 },
-        { name: event.target.value, age: 250 },
+        { name: newName, age: 322 },
+        { name: "subhaddd", age: 33222 },
+        { name: "subhasishddd", age: 3332222 },
       ],
     });
   };
 
-  const [showPersons, setShowPersonstate] = useState((showPersons: false));
+  // const nameChangeHandler = (event) => {
+  //   setPersonState({
+  //     persons: [
+  //       { name: "newName", age: 258 },
+  //       { name: "max", age: 25 },
+  //       { name: event.target.value, age: 250 },
+  //     ],
+  //   });
+  // };
 
-  const toggleName = () => {
-    this.state.showPersons;
-  };
+  // const [showPersons, setShowPersonstate] = useState((showPersons: false));
 
-  const switchNameHandler = (newName, age) => {
-    setPersonState({
+  // const toggleName = () => {
+  //   this.state.showPersons;
+  // };
+
+  // const switchNameHandler = (newName, age) => {
+  //   setPersonState({
+  //     persons: [
+  //       { name: newName, age: age },
+  //       { name: "max", age: 25 },
+  //       { name: "max", age: 250 },
+  //     ],
+  //   });
+  // };
+  // const buttonStyle = {
+  //   backgroundColor: "white",
+  //   front: "inherit",
+  //   border: "2px solid blue",
+  //   padding: "10 px",
+  //   cursor: "pointer",
+  // };
+  nameChangeHandler = (event) => {
+    this.setState({
       persons: [
-        { name: newName, age: age },
-        { name: "max", age: 25 },
-        { name: "max", age: 250 },
+        { name: event.target.value, age: 322 },
+        { name: "subhaddd", age: 33222 },
+        { name: "subhasishddd", age: 3332222 },
       ],
     });
   };
-  const buttonStyle = {
-    backgroundColor: "white",
-    front: "inherit",
-    border: "2px solid blue",
-    padding: "10 px",
-    cursor: "pointer",
+  togglePersonHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow });
   };
-  return (
-    <div className="App">
-      <h1>React App</h1>
-      <button style={buttonStyle} onClick={toggleName}>
-        Toggle Name
-      </button>
-      {this.StaticRange.showPersons ? (
-        <div>
-          <Person
-            name={personState.persons[0].name}
-            age={personState.persons[0].age}
-          />
-          <Person
-            name={personState.persons[1].name}
-            age={personState.persons[1].age}
-            click={switchNameHandler.bind(this, "new", 100)}
-          >
-            My Hobbies:Racing
-          </Person>
-          <Person
-            name={personState.persons[2].name}
-            age={personState.persons[2].age}
-            clickk={nameChangeHandler}
-          />
-        </div>
-      ) : null}
-    </div>
-  );
-};
+  render() {
+    return (
+      <div className="App">
+        <h1>React App</h1>
+        {/* <button style={buttonStyle} onClick={toggleName}>
+          Toggle Name
+        </button> */}
 
-export default app;
+        <button onClick={this.togglePersonHandler}>Display/Hide</button>
+
+        {this.state.showPersons ? (
+          <div>
+            <Person
+              name={this.state.persons[0].name}
+              age={this.state.persons[0].age}
+              changed={this.nameChangeHandler}
+            />
+            <Person
+              name={this.state.persons[1].name}
+              age={this.state.persons[1].age}
+              click={this.switchNameHandler}
+            >
+              My Hobbies:Racing
+            </Person>
+            <Person
+              name={this.state.persons[2].name}
+              age={this.state.persons[2].age}
+            />
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+}
+
+export default App;

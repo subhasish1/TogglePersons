@@ -1,9 +1,22 @@
 import React, { useState, Component } from "react";
 // import logo from "./logo.svg";
 import "./App.css";
-import Radium, { StyleRoot } from "radium";
+// import Radium, { StyleRoot } from "radium";
 import Person from "./Person/Person";
 // import person from "./Person/Person";
+import styled from "styled-components";
+
+const StyledButton = styled.button`
+  font: inherite;
+  padding: 10px;
+  cursor: pointer;
+  background-color: ${(props) => (props.alt ? "red" : "salmon")};
+  color: white;
+  &:hover {
+    background-color: Lightgreen;
+    color: black;
+  }
+`;
 
 class App extends Component {
   state = {
@@ -81,11 +94,11 @@ class App extends Component {
           })}
         </div>
       );
-      buttonStyle.backgroundColor = "red";
-      buttonStyle[":hover"] = {
-        backgroundColor: "salmon",
-        color: "black",
-      };
+      // buttonStyle.backgroundColor = "red";
+      // buttonStyle[":hover"] = {
+      //   backgroundColor: "salmon",
+      //   color: "black",
+      // };
     }
     const classes = [];
     if (this.state.persons.length <= 2) {
@@ -96,20 +109,22 @@ class App extends Component {
     }
 
     return (
-      <StyleRoot>
-        <div className="App">
-          <h1>React App</h1>
-          <p className={classes.join(" ")}>This really working</p>
-          <button style={buttonStyle} onClick={this.togglePersonHandler}>
-            Display/Hide
-          </button>
+      <div className="App">
+        <h1>React App</h1>
+        <p className={classes.join(" ")}>This really working</p>
+        <StyledButton
+          alt={this.state.showPersons}
+          onClick={this.togglePersonHandler}
+        >
+          {" "}
+          Display/Hide
+        </StyledButton>
 
-          {persons}
-        </div>
-      </StyleRoot>
+        {persons}
+      </div>
     );
   }
 }
 
-export default Radium(App); //higher order component
+export default App; //higher order component
 //Radium allow to write css with sudo selector...like :hover also media queries

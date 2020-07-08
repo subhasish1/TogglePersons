@@ -1,8 +1,9 @@
 import React, { useState, Component } from "react";
 // import logo from "./logo.svg";
 import "./App.css";
+import Radium, { StyleRoot } from "radium";
 import Person from "./Person/Person";
-import person from "./Person/Person";
+// import person from "./Person/Person";
 
 class App extends Component {
   state = {
@@ -52,6 +53,17 @@ class App extends Component {
   };
 
   render() {
+    const buttonStyle = {
+      font: "inherite",
+      padding: "10px",
+      cursor: "pointer",
+      backgroundColor: "green",
+      color: "white",
+      ":hover": {
+        backgroundColor: "Lightgreen",
+        color: "black",
+      },
+    };
     let persons = null;
     if (this.state.showPersons) {
       persons = (
@@ -69,20 +81,35 @@ class App extends Component {
           })}
         </div>
       );
+      buttonStyle.backgroundColor = "red";
+      buttonStyle[":hover"] = {
+        backgroundColor: "salmon",
+        color: "black",
+      };
     }
+    const classes = [];
+    if (this.state.persons.length <= 2) {
+      classes.push("red");
+    }
+    if (this.state.persons.length <= 1) {
+      classes.push("bold");
+    }
+
     return (
-      <div className="App">
-        <h1>React App</h1>
-        {/* <button style={buttonStyle} onClick={toggleName}>
-          Toggle Name
-        </button> */}
+      <StyleRoot>
+        <div className="App">
+          <h1>React App</h1>
+          <p className={classes.join(" ")}>This really working</p>
+          <button style={buttonStyle} onClick={this.togglePersonHandler}>
+            Display/Hide
+          </button>
 
-        <button onClick={this.togglePersonHandler}>Display/Hide</button>
-
-        {persons}
-      </div>
+          {persons}
+        </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App); //higher order component
+//Radium allow to write css with sudo selector...like :hover also media queries
